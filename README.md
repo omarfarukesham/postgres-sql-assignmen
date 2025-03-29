@@ -35,53 +35,56 @@ The main objective of this assignment is to work with a PostgreSQL database to s
 
    VARCHAR: এটি পরিবর্তনশীল দৈর্ঘ্যের (ভেরিয়েবল-লেন্থ) ডেটা টাইপ।  যখন VARCHAR(50) ব্যবহার করা হয় তখন এটি সর্বোচ্চ ৫০টি অক্ষর পর্যন্ত ধারণ করতে পারে।  যতগুলো অক্ষর আছে , ঠিক ততটুকুই জায়গা ব্যবহার করবে (কিছু    অতিরিক্ত সামান্য স্থান লাগে)।
 
-5. **List all customers who have placed more than one order**  
-   Query to identify customers with more than one order.
+5. **LWhat are the LIMIT and OFFSET clauses used for?**  
+   LIMIT এবং OFFSET ক্লজ দুটি SELECT স্টেটমেন্টের সাথে ব্যবহার করা হয় যা  ডাটাবেস থেকে ডাটা রিট্রিভ করতে row/সারিগুলোর সংখ্যা নিয়ন্ত্রণ করা যায়। বিশেষ করে, যখন আমাদের কে  একটি বড় ডেটাসেট থেকে ডেটা রিট্রিভ করতে হয় তখন একসাথে সমস্ত ডেটা দেখতে  চাই না , তখন এই ক্লজ দুটি খুবই গুরুত্বপূর্ণ ভূমিকা রাখে।
+
+   লিমিট আসলে প্রতি কল এ কতটি ডাটা দেখবো টা  সেট করে দেয়, অন্য দিকে আফসেট কতটি ডাটা স্কিপ করে কোন ডাটা দেখবো তার লজিক লিখতে হেল্প করে।
 
 6. **Explain the purpose of the WHERE clause in a SELECT statement.**  
    SELECT স্টেটমেন্টে WHERE ক্লজের মূল উদ্দেশ্য হলো নির্দিষ্ট কিছু কন্ডিশনের ভিত্তিতে ডেটা ফিল্টার করা। সহজ ভাষায় বলতে গেলে, WHERE ক্লজ ব্যবহার করে আমরা  ডাটাবেজের টেবিল থেকে শুধুমাত্র সেই সারিগুলো (rows) রিট্রিভ করতে পারি যেগুলি আমাদের  দেওয়া শর্ত পূরণ করে।
 
-7. **Increase the price of all books published before 2000 by 10%**  
-   Query to update the price of books published before the year 2000.
+7. **How can you modify data using UPDATE statements?**  
+  UPDATE স্টেটমেন্ট ব্যবহার করে টেবিলের ভিতরে  ডেটা পরিবর্তন করা যায়। SET ক্লজে কোন কলামের মান পরিবর্তন করতে চাই  তা উল্লেখ করতে হয় এবং WHERE ক্লজে কোন সারিগুলোর ডেটা পরিবর্তন করতে চাই তার শর্ত দেওয়া হয়।
+ ```sql
+   UPDATE customers
+   SET email = 'jane.new@example.com'
+   WHERE customer_id = 2;
+   ```
 
-8. **Delete customers who haven't placed any orders**  
-   Query to remove customers who do not have any associated orders.
+8. **What is the significance of the JOIN operation, and how does it work in PostgreSQL?**  
+   JOIN অপারেশন একাধিক টেবিলের মধ্যে সম্পর্ক স্থাপন করে এবং সেই সম্পর্ক অনুযায়ী ডেটা একত্রিত করে একটি সমন্বিত ফলাফল তৈরি করে। যখন প্রয়োজনীয় তথ্য একাধিক টেবিলে বিভক্ত থাকে, তখন JOIN ব্যবহার করে সেই তথ্যকে একসাথে আনা হয় এবং ঐ ডাটা গুলো রিডেবল করে প্রেসেন্ট করা হয়।
 
-### Example SQL Operations
+   PostgreSQL-এ JOIN বিভিন্ন প্রকারের হয় (যেমন: INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN)। প্রতিটি  JOIN দুটি টেবিলের সারিগুলোকে নির্দিষ্ট শর্তের ভিত্তিতে মিলিয়ে নতুন একটি ভার্চুয়াল টেবিল তৈরি করে। ON ক্লজে সেই শর্তটি উল্লেখ করা হয় যার উপর ভিত্তি করে সারিগুলো মেলানো হয় (সাধারণত একটি টেবিলের ফরেন কী এবং অন্য টেবিলের প্রাইমারি কী)।  কোন টেবিলের কোন সারিগুলো অন্তর্ভুক্ত হবে, তা ব্যবহৃত JOIN-এর প্রকারের উপর নির্ভর করে।
 
-Below is an example of the SQL operations performed in this assignment:
+   ```sql
+   -- Create a table for joining together
+         SELECT o.id, c.name, b.title
+         FROM orders o
+         JOIN customers c ON o.customer_id = c.id
+         JOIN books b ON o.book_id = b.id;
+   ```
 
-```sql
--- Create a table for books
-CREATE TABLE books (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    price NUMERIC(10, 2) CHECK (price >= 0),
-    stock INT CHECK (stock >= 0),
-    published_year INT
-);
+9. **Explain the GROUP BY clause and its role in aggregation operations.**  
+      GROUP BY ক্লজ SELECT স্টেটমেন্টের একটি গুরুত্বপূর্ণ অংশ যা একই মানযুক্ত সারিগুলোকে একটি বা একাধিক কলামের ভিত্তিতে গ্রুপ  করে। এর প্রধান ভূমিকা হলো  সেম  গ্রুপ এর  ডেটার উপর অ্যাগ্রিগেশন ফাংশন (যেমন COUNT, SUM, AVG, MIN, MAX) প্রয়োগ করা এবং প্রতিটি গ্রুপের জন্য একটি রিলেভেন্ট  রেজাল্ট  তৈরি করা।
 
--- Insert sample data into the books table
-INSERT INTO books (id, title, author, price, stock, published_year) 
-VALUES 
-(1, 'The Pragmatic Programmer', 'Andrew Hunt', 40.00, 10, 1999),
-(2, 'Clean Code', 'Robert C. Martin', 35.00, 5, 2008),
-(3, 'You Don''t Know JS', 'Kyle Simpson', 30.00, 8, 2014),
-(4, 'Refactoring', 'Martin Fowler', 50.00, 3, 1999),
-(5, 'Database Design Principles', 'Jane Smith', 20.00, 0, 2018);
+      গ্রুপিং (Grouping): GROUP BY ক্লজে উল্লেখিত কলামগুলির মানের ভিত্তিতে টেবিলের সারিগুলোকে বিভিন্ন গ্রুপে ভাগ করা হয়। যদি একাধিক কলাম উল্লেখ করা হয়, তবে সারিগুলো কলামগুলোর মানের প্রতিটি ইউনিক কম্বিনেশন এর  ভিত্তিতে একত্রিত করে।
 
--- Example query: Find books that are out of stock
-SELECT * FROM books
-WHERE stock = 0;
+      অ্যাগ্রিগেশন (Aggregation): GROUP BY ক্লজের সাথে সাধারণত এক বা একাধিক অ্যাগ্রিগেশন ফাংশন ব্যবহৃত হয়। 
+
+10. **What is the significance of the JOIN operation, and how does it work in PostgreSQL?**  
+   PostgreSQL-এ COUNT(), SUM(), এবং AVG() এর মতো অ্যাগ্রিগেট ফাংশন ব্যবহার করে ডেটা গণনা, যোগফল এবং গড় বের করা যায়। নিচে এদের ব্যবহারের নিয়ম এবং উদাহরণ দেওয়া হলো - 
+```sql 
+-- Total number of books
+SELECT COUNT(*) FROM books;
+
+-- Total price of all books
+SELECT SUM(price) FROM books;
+
+-- Average price of books
+SELECT AVG(price) FROM books;
 ```
 
-### How to Use
 
-1. Set up a PostgreSQL database and connect to it.
-2. Run the provided SQL scripts to create tables and insert sample data.
-3. Execute the queries to solve the problems listed above.
-4. Modify the queries as needed to adapt to your specific database schema.
 
 ### Prerequisites
 
