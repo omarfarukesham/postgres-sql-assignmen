@@ -6,10 +6,15 @@ This folder contains SQL scripts and queries designed to solve various database-
 
 The main objective of this assignment is to work with a PostgreSQL database to solve real-world problems. The examples provided include creating and managing tables, retrieving data, and performing calculations. Below is a summary of the problems addressed:
 
-### Problems Solved
+### Asking the PostgreSQL Question and answer in bangla ... 
 
-1. **Find books that are out of stock**  
-   Query to retrieve all books where the stock is zero.
+1. **What is PostgreSQL?**  
+  পোস্টগ্রেস হল একটি ওপেন সোর্স  রিলেশনাল ডাটাবেস ম্যানেজমেন্ট সিস্টেম যা SQL stongly সাপোর্ট করে। কোন সিস্টেম এর বিগ ডাটা ম্যানেজ করতে বর্তমান সময় এ সব চাইতে জনপ্রিয় সফটওয়্যার যেটি অনেক পাওয়ারফুল ফীচার দিয়া থাকে যেমন - 
+        ১. ACID  কমপাইলান্স 
+        ২. অনেক জটিল কুয়ারিস সাপোর্ট করে যেমন ইনডেক্সিং 
+        ৩. কাস্টম ফাঙ্কশন, অপারেটর এবং ডাটা টাইপ সাপোর্ট দেয়াই 
+
+
 
 2. **Retrieve the most expensive book in the store**  
    Query to find the book with the highest price.
