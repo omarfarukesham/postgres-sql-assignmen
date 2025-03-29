@@ -15,5 +15,3 @@ VALUES
 
 SELECT * FROM customers
 ORDER BY joined_date DESC;
-
-DROP TABLE customers;

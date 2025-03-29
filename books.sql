@@ -17,7 +17,7 @@ VALUES
 (5, 'Database Design Principles', 'Jane Smith', 20.00, 0, 2018);
 
 
-DROP TABLE books;
+--DROP TABLE books;
 
 SELECT * FROM books
 
@@ -56,7 +56,7 @@ HAVING COUNT(orders.customer_id) > 1
 
 --Problem-6: Find the average price of books in the store.
 
-SELECT sum(books.price) AS avg_book_price
+SELECT round(avg(books.price), 2) AS avg_book_price
 FROM books
 
 --Problem-7: Increase the price of all books published before 2000 by 10%.
@@ -68,3 +68,6 @@ WHERE published_year < 2000
 DELETE FROM customers
 WHERE id NOT IN (SELECT customer_id FROM orders)
 
+
+
+SELECT * FROM customers
