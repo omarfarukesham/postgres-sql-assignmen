@@ -10,26 +10,36 @@ The main objective of this assignment is to work with a PostgreSQL database to s
 
 1. **What is PostgreSQL?**  
   পোস্টগ্রেস হল একটি ওপেন সোর্স  রিলেশনাল ডাটাবেস ম্যানেজমেন্ট সিস্টেম যা SQL stongly সাপোর্ট করে। কোন সিস্টেম এর বিগ ডাটা ম্যানেজ করতে বর্তমান সময় এ সব চাইতে জনপ্রিয় সফটওয়্যার যেটি অনেক পাওয়ারফুল ফীচার দিয়া থাকে যেমন - 
-        ১. ACID  কমপাইলান্স 
-        ২. অনেক জটিল কুয়ারিস সাপোর্ট করে যেমন ইনডেক্সিং 
-        ৩. কাস্টম ফাঙ্কশন, অপারেটর এবং ডাটা টাইপ সাপোর্ট দেয়াই 
+     - ১. ACID  কমপাইলান্স 
+     - ২. অনেক জটিল কুয়ারিস সাপোর্ট করে যেমন ইনডেক্সিং 
+     - ৩. কাস্টম ফাঙ্কশন, অপারেটর এবং ডাটা টাইপ সাপোর্ট দেয়াই 
 
 
 
-2. **Retrieve the most expensive book in the store**  
-   Query to find the book with the highest price.
+2. **What is the purpose of a database schema in PostgreSQL?**  
+   PostgreSQL স্কিমা হলো একটি লজিক্যাল কন্টেইনার যা ডাটাবেস অবজেক্ট এর মতো ব্যবহার করা হয় যেমন টেবিলস, ভিউ, ইন্ডেক্সেস ফাঙ্কশন এ ছাড়াও এটি ডাটাবেস কে অনেক অর্গানাইজেড করতে হেল্প করে, মাল্টিপল স্কিমা দিয়া সেপারেট ডাটা লজিক লিখা যায়।
 
-3. **Find the total number of orders placed by each customer**  
-   Query to calculate the total orders for each customer using a join between `customers` and `orders`.
+3. **Explain the Primary Key and Foreign Key concepts in PostgreSQL.**  
+   প্রাইমারি কী:  প্রাইমারি কী হলো একটি টেবিলের এক বা একাধিক কলামের একটি সেট যা টেবিলের প্রতিটি সারিকে (row) আলাদা আলাদা ভাবে  চিহ্নিত করে। এটিকে টেবিলের "পরিচয়পত্র" হিসেবে ধরা যেতে পারে।
+      - একটি টেবিলের সারিগুলোকে ইউনিকলি  চিহ্নিত করে 
+      - এবং ডেটা ইন্টিগ্রিটি বজায় রাখে।
+ 
+   ফরেন কী: ফরেন কী হলো একটি টেবিলের এক বা একাধিক কলাম যা অন্য টেবিলের প্রাইমারি কী-এর মানকে নির্দেশ করে।  ফরেন কী একটি টেবিলের ডেটাকে অন্য টেবিলের ডেটার সাথে লিঙ্ক করতে ব্যবহৃত হয়।
+      - দুটি টেবিলের মধ্যে সম্পর্ক স্থাপন করে 
+      - এবং রেফারেনশিয়াল ইন্টিগ্রিটি নিশ্চিত করে।
 
-4. **Calculate the total revenue generated from book sales**  
-   Query to compute the total revenue by multiplying book prices with order quantities.
+এই দুটি ধারণা PostgreSQL এ ডেটা ব্যবস্থাপনার জন্য অত্যন্ত গুরুত্বপূর্ণ।
+
+4. **What is the difference between the VARCHAR and CHAR data types?**  
+   CHAR: এটি একটি নির্দিষ্ট দৈর্ঘ্যের (ফিক্সড-লেন্থ) ডেটা টাইপ। যখন আমার CHAR(10) বলে দেই  তখন এটি সবসময় ১০টি অক্ষরের জন্যই জায়গা ধরে রাখে। যদি কম অক্ষর দিলেও বাকি জায়গা স্পেস দিয়ে পূরণ করবে।
+
+   VARCHAR: এটি পরিবর্তনশীল দৈর্ঘ্যের (ভেরিয়েবল-লেন্থ) ডেটা টাইপ।  যখন VARCHAR(50) ব্যবহার করা হয় তখন এটি সর্বোচ্চ ৫০টি অক্ষর পর্যন্ত ধারণ করতে পারে।  যতগুলো অক্ষর আছে , ঠিক ততটুকুই জায়গা ব্যবহার করবে (কিছু    অতিরিক্ত সামান্য স্থান লাগে)।
 
 5. **List all customers who have placed more than one order**  
    Query to identify customers with more than one order.
 
-6. **Find the average price of books in the store**  
-   Query to calculate the average price of all books.
+6. **Explain the purpose of the WHERE clause in a SELECT statement.**  
+   SELECT স্টেটমেন্টে WHERE ক্লজের মূল উদ্দেশ্য হলো নির্দিষ্ট কিছু কন্ডিশনের ভিত্তিতে ডেটা ফিল্টার করা। সহজ ভাষায় বলতে গেলে, WHERE ক্লজ ব্যবহার করে আমরা  ডাটাবেজের টেবিল থেকে শুধুমাত্র সেই সারিগুলো (rows) রিট্রিভ করতে পারি যেগুলি আমাদের  দেওয়া শর্ত পূরণ করে।
 
 7. **Increase the price of all books published before 2000 by 10%**  
    Query to update the price of books published before the year 2000.
